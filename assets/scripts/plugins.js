@@ -20,13 +20,13 @@
 
         var defaults = {
 
-            prefixClass: 'tabs-',
-            headingTag: 'h3',
-            startTab: 1,
-            easeDuration: 200,
-            firstChildClass: 'first-child',
-            lastChildClass: 'last-child',
-            tabContentMarginBottom: 24
+            prefixClass: 'tabs-', // Default Tabs classes and id prefix
+            headingTag: 'h3', // Each content block heading tag, id or class
+            startTab: 1, // Number of tab to be opened on initial page load
+            easeDuration: 200, // Animation duration
+            firstChildClass: 'first-child', // Tabs li:first-child class to support old browsers
+            lastChildClass: 'last-child', // Tabs li:last-child class to support old browsers
+            tabContentMarginBottom: 24 // Base line height in px
         }
 
         var base = this;
@@ -56,17 +56,20 @@
 
             $tabs = $element.children();
 
-            base.addTabs();
+            prefixID = element.substring(1, element.length);
+
+            if ($('#' + base.settings.prefixClass + prefixID).length > 0) {
+
+                console.log('Error: #' + base.settings.prefixClass + prefixID + ' already exist');
+                return false;
+
+            } else {
+
+                base.addTabs();
+            }
         }
 
         base.addTabs = function() {
-
-            if ($tabsContainer) {
-
-                return false;
-            }
-
-            prefixID = element.substring(1, element.length);
 
             $tabsContainer = addHTMLelement('div').attr('id', base.settings.prefixClass + prefixID).insertBefore($element);
             $tabsNav = addHTMLelement('ul', base.settings.prefixClass + 'links ' + base.settings.prefixClass + 'links-' + $tabs.length).appendTo($tabsContainer);
@@ -150,7 +153,7 @@
 
         base.destroy = function() {
 
-            $tabsContainer.remove();
+            $('#' + base.settings.prefixClass + prefixID).remove();
             $element.show();
         }
 
