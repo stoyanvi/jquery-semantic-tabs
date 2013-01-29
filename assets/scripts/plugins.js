@@ -117,41 +117,43 @@
                 $activeContent.parent().height($activeContent.outerHeight(true) + heightRatio);
             });
 
-            $tabsNav.find('.' + base.settings.prefixClass + 'anchor').bind('click', function(e) {
+            $tabsNav.find('.' + base.settings.prefixClass + 'anchor').bind('click', openTab);
+        }
 
-                e.preventDefault();
+        var openTab = function(e) {
 
-                if (!$(this).hasClass('active')) {
+            e.preventDefault();
 
-                    $activeTab.removeClass('active');
+            if (!$(this).hasClass('active')) {
 
-                    $activeTab = $(this);
-                    $activeTab.addClass('active');
+                $activeTab.removeClass('active');
 
-                    tabAnchor = $(this).attr('href');
+                $activeTab = $(this);
+                $activeTab.addClass('active');
 
-                    if ($.browser.msie && $.browser.version.substr(0,1) <= 7) {
+                tabAnchor = $(this).attr('href');
 
-                        var elHeight = $(tabAnchor).outerHeight(true);
+                if ($.browser.msie && $.browser.version.substr(0,1) <= 7) {
 
-                    } else {
+                    var elHeight = $(tabAnchor).outerHeight(true);
 
-                        var elHeight = $(tabAnchor).outerHeight(true) + heightRatio - 3;
-                    }
+                } else {
 
-                    $activeContent.fadeOut(base.settings.easeDuration, function() {
-
-                        $(tabAnchor).parent().animate({
-
-                            height: elHeight
-
-                        }, base.settings.easeDuration * 2, function() {
-                            $(tabAnchor).parent().css('overflow', 'visible');
-                            $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
-                        });
-                    });
+                    var elHeight = $(tabAnchor).outerHeight(true) + heightRatio - 3;
                 }
-            });
+
+                $activeContent.fadeOut(base.settings.easeDuration, function() {
+
+                    $(tabAnchor).parent().animate({
+
+                        height: elHeight
+
+                    }, base.settings.easeDuration * 1.5, function() {
+                        $(tabAnchor).parent().css('overflow', 'visible');
+                        $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
+                    });
+                });
+            }
         }
 
         base.destroy = function() {
