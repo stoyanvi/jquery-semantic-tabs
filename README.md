@@ -28,7 +28,11 @@ Example html:
 
 Attaching the plugin:
 
-    var listToTabs = new $.listToTabs('#solutions');
+    var myTabs = new $.listToTabs('#solutions');
+
+Destroy the plugin:
+
+    myTabs.destroy();
 
 Plugin options
 --------------
