@@ -1,0 +1,269 @@
+@import 'constants';
+@import 'functions';
+
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+}
+
+/* =============================================================================
+  GENERAL
+============================================================================= */
+
+* { @include box-sizing(border-box); }
+
+html {
+  @include safe-background-image($background-footer, theme(text main), repeat);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $base-font-family;
+  color: theme(text main);
+}
+
+p {
+  @include trailer;
+  margin-top: 0;
+}
+
+a {
+  color: theme(navigation link);
+  text-decoration: none;
+  border-bottom: 1px dotted theme(navigation link);
+  outline: 0 !important;
+
+  &:hover,
+  &:active {
+    border-bottom-style: solid;
+  }
+
+  &:visited {
+    color: theme(navigation link);
+  }
+
+  &:focus {
+    -moz-outline-style: none;
+    outline: none;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+@for $i from 1 through 4 {
+
+  h#{$i} { @include headings($i); }
+}
+
+#main {
+  @include safe-background-image($background-main, transparent, repeat);
+  padding: rhythm(2) 0;
+}
+
+.content {
+  @extend %page;
+  @include clearfix;
+  min-height: rhythm(20);
+}
+
+p { text-align: left; }
+
+.float-left {
+  @include float(left);
+  margin: 0 rhythm() rhythm() 0;
+}
+
+.float-right {
+  @include float(right);
+  margin: 0 0 rhythm() rhythm();
+}
+
+#solutions {
+  @include no-bullets;
+  margin: 0 0 rhythm();
+  padding: 0;
+}
+
+/*** Tabs ***/
+
+.tabs-links {
+  @include no-bullets;
+  @include horizontal-list-container;
+
+  li {
+    @include horizontal-list-item(0);
+    width: item-width(3);
+
+    &.first-child {
+
+      a {
+        @include border-radius($base-radius 0 0 0);
+      }
+    }
+
+    &.last-child {
+
+      a {
+        @include border-radius(0 $base-radius 0 0);
+        border-right: 1px solid darken(theme(page), 15%);
+      }
+    }
+  }
+}
+
+.tabs-anchor {
+  @include background-image(
+    linear-gradient(
+      darken(theme(page), 3.5%),
+      darken(theme(page), 7%)
+    )
+  );
+  @include box-shadow(
+    theme(page) 0 1px 0 0 inset,
+    rgba(theme(page, absdark), .15) 0 -10px 10px -10px inset
+  );
+  @include text-shadow(theme(page) 0 1px 0);
+  display: block;
+  padding: rhythm(.5) 0;
+  border: 1px solid darken(theme(page), 15%);
+  border-right: 0 none;
+  text-align: center;
+
+  .no-cssgradients & {
+
+    $width: 1px;
+    $height: $base-line-height * 2;
+
+    $background-commands: canvas('background-tabs_anchor.png', $width, $height,
+      rectangle(0, 0, $width, $height)
+      brush(
+        0, 0,
+        0, $height,
+        darken(theme(page), 3.5%),
+        darken(theme(page), 7%)
+      )
+      fill
+    );
+
+    @include safe-background-image($background-commands, transparent, repeat-x);
+  }
+
+  &:hover {
+    @include background-image(
+      linear-gradient(
+        darken(theme(page), 1.5%),
+        darken(theme(page), 5%)
+      )
+    );
+    color: theme(text main);
+
+    .no-cssgradients & {
+
+      $width: 1px;
+      $height: $base-line-height * 2;
+
+      $background-commands: canvas('background-tabs_anchor_hover.png', $width, $height,
+        rectangle(0, 0, $width, $height)
+        brush(
+          0, 0,
+          0, $height,
+          darken(theme(page), 1.5%),
+          darken(theme(page), 5%)
+        )
+        fill
+      );
+
+      @include safe-background-image($background-commands, transparent, repeat-x);
+    }
+  }
+
+  /* &:active {
+    @include background-image(
+      linear-gradient(
+        darken(theme(page), 12%),
+        darken(theme(page), 8.5%)
+      )
+    );
+    @include box-shadow(rgba(theme(page, absdark), .15) 0 3px 7px 0 inset);
+    @include text-shadow(rgba(theme(page), .5) 0 1px 0);
+    color: theme(text main);
+
+    .no-cssgradients & {
+
+      $width: 1px;
+      $height: $base-line-height * 2;
+
+      $background-commands: canvas('background-tabs_anchor_active.png', $width, $height,
+        rectangle(0, 0, $width, $height)
+        brush(
+          0, 0,
+          0, $height,
+          darken(theme(page), 12%),
+          darken(theme(page), 8.5%)
+        )
+        fill
+      );
+
+      @include safe-background-image($background-commands, transparent, repeat-x);
+    }
+  } */
+
+  &:active,
+  &.active {
+    @include box-shadow(theme(page) 0 1px 0 0 inset);
+    border-bottom-color: darken(theme(page), 7.5%);
+    background: rgba(theme(page), .7);
+    color: theme(text main);
+
+    .no-cssgradients & {
+      background: rgba(theme(page), .7);
+    }
+
+    .no-rgba & {
+
+      $size: 10px;
+
+      $background-commands: canvas('background-tabs_anchor_current.png', $size, $size,
+        rectangle(0, 0, $size, $size)
+        brush(rgba(theme(page), .7))
+        fill
+      );
+
+      @include safe-background-image($background-commands, transparent, repeat);
+    }
+  }
+
+  &:active {
+    border-bottom-color: darken(theme(page), 15%);
+  }
+}
+
+.tabs-content-wrapper {
+  @include border-radius(0 0 $base-radius $base-radius);
+  padding: rhythm(.85) rhythm(.75) 0;
+  border: 1px solid darken(theme(page), 15%);
+  border-top: 0 none;
+  background: rgba(theme(page), .7);
+
+  .no-rgba & {
+
+    @include safe-background-image('background-tabs_anchor_current.png', transparent, repeat);
+  }
+}
+
+/*** / Tabs ***/
+
+#footer {
+  margin-bottom: rhythm();
+  color: theme(text footer);
+}
+
+.copyright {
+  display: block;
+  margin: rhythm() auto;
+  text-align: center;
+}
