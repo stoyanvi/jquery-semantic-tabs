@@ -1,22 +1,6 @@
 (function($) {
 
-    /*** Add HTML Element ***/
-
-    addHTMLelement = function(tag, className, css) {
-
-        var el = document.createElement(tag);
-
-        if(className) el.className = className;
-        if(css) el.style.cssText = css;
-
-        return $(el);
-    }
-
-    /*** / Add HTML Element ***/
-
-    /*** Tabs Navigation ***/
-
-    $.listToTabs = function(element, options) {
+    $.semanticTabs = function(element, options) {
 
         var defaults = {
 
@@ -65,21 +49,31 @@
 
             } else {
 
-                base.addTabs();
+                addTabs();
             }
         }
 
-        base.addTabs = function() {
+        var addEl = function(tag, className, css) {
 
-            $tabsContainer = addHTMLelement('div').attr('id', base.settings.prefixClass + prefixID).insertBefore($element);
-            $tabsNav = addHTMLelement('ul', base.settings.prefixClass + 'links ' + base.settings.prefixClass + 'links-' + $tabs.length).appendTo($tabsContainer);
-            $tabsWrapper = addHTMLelement('div', base.settings.prefixClass + 'content-wrapper').appendTo($tabsContainer);
+            var el = document.createElement(tag);
+
+            if(className) el.className = className;
+            if(css) el.style.cssText = css;
+
+            return $(el);
+        }
+
+        var addTabs = function() {
+
+            $tabsContainer = addEl('div').attr('id', base.settings.prefixClass + prefixID).insertBefore($element);
+            $tabsNav = addEl('ul', base.settings.prefixClass + 'links ' + base.settings.prefixClass + 'links-' + $tabs.length).appendTo($tabsContainer);
+            $tabsWrapper = addEl('div', base.settings.prefixClass + 'content-wrapper').appendTo($tabsContainer);
 
             $tabs.find(base.settings.headingTag).each(function(index) {
 
-                $tabsItems = addHTMLelement('li').appendTo($tabsNav);
+                $tabsItems = addEl('li').appendTo($tabsNav);
 
-                $tabAnchor = addHTMLelement('a', base.settings.prefixClass + 'anchor ' + base.settings.prefixClass + 'anchor-0' + (index + 1))
+                $tabAnchor = addEl('a', base.settings.prefixClass + 'anchor ' + base.settings.prefixClass + 'anchor-0' + (index + 1))
                             .attr('href', '#' + prefixID + '-item-0' + (index + 1))
                             .appendTo($tabsItems)
                             .text($(this).text());
@@ -93,7 +87,7 @@
                     $tabAnchor.parent().addClass(base.settings.lastChildClass);
                 }
 
-                $tabsContent = addHTMLelement('div', base.settings.prefixClass + 'content')
+                $tabsContent = addEl('div', base.settings.prefixClass + 'content')
                               .attr('id', prefixID + '-item-0' + (index + 1))
                               .appendTo($tabsWrapper)
                               .hide();
@@ -165,18 +159,16 @@
         base.init();
     }
 
-    $.fn.listToTabs = function(options) {
+    $.fn.semanticTabs = function(options) {
 
         return this.each(function() {
 
-            if (undefined == $(this).data('listToTabs')) {
+            if (undefined == $(this).data('semanticTabs')) {
 
-                var listToTabs = new $.listToTabs(this, options);
-                $(this).data('listToTabs', listToTabs);
+                var semanticTabs = new $.semanticTabs(this, options);
+                $(this).data('semanticTabs', semanticTabs);
             }
         });
     }
-
-    /*** / Tabs Navigation ***/
 
 })(jQuery);
