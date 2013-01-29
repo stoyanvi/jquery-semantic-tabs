@@ -145,7 +145,7 @@
 
                             height: elHeight
 
-                        }, base.settings.easeDuration, function() {
+                        }, base.settings.easeDuration * 2, function() {
                             $(tabAnchor).parent().css('overflow', 'visible');
                             $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
                         });

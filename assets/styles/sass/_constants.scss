@@ -59,7 +59,6 @@ $page-height:                     2000px;
 $base-radius:                     6px;
 
 $background-main:                 'background-main.png';
-$background-footer:               'background-footer.png';
 
 .content {
   @include baseline-grid-background($base-line-height, rgba(red, .15));

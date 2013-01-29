@@ -13,7 +13,7 @@
 * { @include box-sizing(border-box); }
 
 html {
-  @include safe-background-image($background-footer, theme(text main), repeat);
+  background: theme(text main, darkish);
 }
 
 body {
