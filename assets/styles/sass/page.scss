@@ -177,6 +177,10 @@ h2 {
     @include safe-background-image($background-commands, transparent, repeat-x);
   }
 
+  &:visited {
+    color: theme(page);
+  }
+
   &:hover {
     @include background-image(
       linear-gradient(

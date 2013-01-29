@@ -119,6 +119,8 @@
 
             if (!$(this).hasClass('active')) {
 
+                $tabsNav.find('.' + base.settings.prefixClass + 'anchor').unbind().bind('click', function(e) { e.preventDefault(); });
+
                 $activeTab.removeClass('active');
                 $activeTab = $(this);
                 var tabAnchor = $(this).attr('href');
@@ -144,6 +146,7 @@
                         $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
 
                         $activeTab.addClass('active');
+                        $tabsNav.find('.' + base.settings.prefixClass + 'anchor').unbind().bind('click', openTab);
                     });
                 });
             }

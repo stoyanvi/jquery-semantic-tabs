@@ -523,7 +523,10 @@ p {
   text-overflow: ellipsis;
 }
 .no-cssgradients .tabs-anchor {
-  background: transparent url('../images/background-tabs_anchor.png?1359472382') repeat-x 0 0;
+  background: transparent url('../images/background-tabs_anchor.png?1359473429') repeat-x 0 0;
+}
+.tabs-anchor:visited {
+  color: white;
 }
 .tabs-anchor:hover {
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #489ad6), color-stop(100%, #2b81c0));
@@ -533,7 +536,7 @@ p {
   background-image: linear-gradient(#489ad6, #2b81c0);
 }
 .no-cssgradients .tabs-anchor:hover {
-  background: transparent url('../images/background-tabs_anchor_hover.png?1359472382') repeat-x 0 0;
+  background: transparent url('../images/background-tabs_anchor_hover.png?1359473429') repeat-x 0 0;
 }
 .tabs-anchor.active {
   text-shadow: white 0 1px 0;
@@ -549,7 +552,7 @@ p {
   background: rgba(255, 255, 255, 0.7);
 }
 .no-rgba .tabs-anchor.active {
-  background: transparent url('../images/background-tabs_anchor_current.png?1359472382') repeat 0 0;
+  background: transparent url('../images/background-tabs_anchor_current.png?1359473429') repeat 0 0;
 }
 
 .tabs-content-wrapper {
@@ -564,7 +567,7 @@ p {
   background: rgba(255, 255, 255, 0.7);
 }
 .no-rgba .tabs-content-wrapper {
-  background: transparent url('../images/background-tabs_anchor_current.png?1359472382') repeat 0 0;
+  background: transparent url('../images/background-tabs_anchor_current.png?1359473429') repeat 0 0;
 }
 
 /*** / Tabs ***/
