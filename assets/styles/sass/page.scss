@@ -181,37 +181,6 @@ p { text-align: left; }
     }
   }
 
-  /* &:active {
-    @include background-image(
-      linear-gradient(
-        darken(theme(page), 12%),
-        darken(theme(page), 8.5%)
-      )
-    );
-    @include box-shadow(rgba(theme(page, absdark), .15) 0 3px 7px 0 inset);
-    @include text-shadow(rgba(theme(page), .5) 0 1px 0);
-    color: theme(text main);
-
-    .no-cssgradients & {
-
-      $width: 1px;
-      $height: $base-line-height * 2;
-
-      $background-commands: canvas('background-tabs_anchor_active.png', $width, $height,
-        rectangle(0, 0, $width, $height)
-        brush(
-          0, 0,
-          0, $height,
-          darken(theme(page), 12%),
-          darken(theme(page), 8.5%)
-        )
-        fill
-      );
-
-      @include safe-background-image($background-commands, transparent, repeat-x);
-    }
-  } */
-
   &:active,
   &.active {
     @include box-shadow(theme(page) 0 1px 0 0 inset);
