@@ -108,9 +108,13 @@
 
                 $tabsContent.find(base.settings.headingTag).remove();
 
-                $activeContent.parent().height($activeContent.outerHeight() + heightRatio);
+                $activeContent.parent().height($activeContent.outerHeight(true) + heightRatio);
 
                 heightRatio = base.settings.tabContentMarginBottom;
+            });
+
+            $(window).bind('resize', function() {
+                $activeContent.parent().height($activeContent.outerHeight(true) + heightRatio);
             });
 
             $tabsNav.find('.' + base.settings.prefixClass + 'anchor').bind('click', function(e) {
@@ -128,11 +132,11 @@
 
                     if ($.browser.msie && $.browser.version.substr(0,1) <= 7) {
 
-                        var elHeight = $(tabAnchor).outerHeight();
+                        var elHeight = $(tabAnchor).outerHeight(true);
 
                     } else {
 
-                        var elHeight = $(tabAnchor).outerHeight() + heightRatio - 3;
+                        var elHeight = $(tabAnchor).outerHeight(true) + heightRatio - 3;
                     }
 
                     $activeContent.fadeOut(base.settings.easeDuration, function() {
@@ -142,10 +146,9 @@
                             height: elHeight
 
                         }, base.settings.easeDuration, function() {
-
+                            $(tabAnchor).parent().css('overflow', 'visible');
                             $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
                         });
-
                     });
                 }
             });

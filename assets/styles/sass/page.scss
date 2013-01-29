@@ -68,6 +68,7 @@ img {
   @extend %page;
   @include clearfix;
   min-height: rhythm(20);
+  padding: 0 rhythm();
 }
 
 p { text-align: left; }
@@ -128,10 +129,12 @@ p { text-align: left; }
   );
   @include text-shadow(theme(page) 0 1px 0);
   display: block;
-  padding: rhythm(.5) 0;
+  padding: rhythm(.5) rhythm(.35);
   border: 1px solid darken(theme(page), 15%);
   border-right: 0 none;
   text-align: center;
+  overflow: hidden;
+	text-overflow: ellipsis;
 
   .no-cssgradients & {
 

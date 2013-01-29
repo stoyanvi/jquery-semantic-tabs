@@ -137,6 +137,6 @@
 
 @function item-width($i) {
 
-  $width: $page-width / $i;
+  $width: 100% / $i;
   @return $width;
 }
