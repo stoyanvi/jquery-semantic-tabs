@@ -13,15 +13,15 @@ Example html:
 
     <ol id="solutions">
         <li>
-            <h3>Portal Solutions</h3>
+            <h3>Solution Name One</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae ullamcorper nisi.</p>
         </li>
         <li>
-            <h3>Mobile Solutions</h3>
+            <h3>Solution Name Two</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae ullamcorper nisi.</p>
         </li>
         <li>
-            <h3>Positioning systems</h3>
+            <h3>Solution Name Three</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae ullamcorper nisi.</p>
         </li>
     </ol>
