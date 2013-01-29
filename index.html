@@ -47,12 +47,45 @@
         <script>window.jQuery || document.write('<script src="assets/scripts/vendor/jquery-1.8.2.min.js"><\/script>')</script>
         <script src="assets/scripts/jquery-semanticTabs.min.js"></script>
         <script>
-            var myTabs;
+
+            $.fn.clickToggle = function(func1, func2) {
+
+                var funcs = [func1, func2];
+
+                this.data('toggleclicked', 0);
+
+                this.click(function() {
+
+                    var data = $(this).data();
+                    var tc = data.toggleclicked;
+                    $.proxy(funcs[tc], this)();
+                    data.toggleclicked = (tc + 1) % 2;
+                });
+
+                return this;
+            };
 
             $(document).ready(function() {
 
-                myTabs = new $.semanticTabs('#solutions');
+                var destroyLink = '<span class="toggle-tabs">Destroy Tabs</span>';
+
+                $('#solutions').before($(destroyLink));
+
+                var  myTabs = new $.semanticTabs('#solutions');
+
+                $('.toggle-tabs').clickToggle(function() {
+
+                    myTabs.destroy();
+                    $('#solutions').removeClass('visuallyhidden');
+                    $(this).text('Add Tabs');
+
+                }, function() {
+
+                    myTabs = new $.semanticTabs('#solutions');
+                    $(this).text('Destroy Tabs');
+                });
             });
+            
         </script>
     </body>
 </html>

@@ -89,6 +89,23 @@ p { text-align: left; }
   padding: 0;
 }
 
+h2 {
+  //background: rgba(red, .15);
+}
+
+.toggle-tabs {
+  position: absolute;
+  top: rhythm(.5);
+  right: rhythm();
+  border-bottom: 1px dotted theme(navigation link);
+  color: theme(navigation link);
+  cursor: pointer;
+
+  &:hover {
+    border-bottom-style: solid;
+  }
+}
+
 /*** Tabs ***/
 
 .tabs-links {
