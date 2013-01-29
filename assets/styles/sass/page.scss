@@ -127,7 +127,11 @@ h2 {
 
       a {
         @include border-radius(0 $base-radius 0 0);
-        border-right: 1px solid darken(theme(page), 15%);
+        border-right: 1px solid darken(theme(navigation link), 7%);
+
+        &.active {
+          border-right-color: darken(theme(page), 15%);
+        }
       }
     }
   }
@@ -136,20 +140,21 @@ h2 {
 .tabs-anchor {
   @include background-image(
     linear-gradient(
-      darken(theme(page), 3.5%),
-      darken(theme(page), 7%)
+      lighten(theme(navigation link), 3%),
+      darken(theme(navigation link), 7%)
     )
   );
   @include box-shadow(
-    theme(page) 0 1px 0 0 inset,
+    rgba(theme(page), .35) 0 1px 0 0 inset,
     rgba(theme(page, absdark), .15) 0 -10px 10px -10px inset
   );
-  @include text-shadow(theme(page) 0 1px 0);
+  @include text-shadow(darken(theme(navigation link), 10%) 0 1px 0);
   display: block;
   padding: rhythm(.5) rhythm(.35);
-  border: 1px solid darken(theme(page), 15%);
+  border: 1px solid darken(theme(navigation link), 7%);
   border-right: 0 none;
   text-align: center;
+  color: theme(page);
   overflow: hidden;
 	text-overflow: ellipsis;
 
@@ -163,8 +168,8 @@ h2 {
       brush(
         0, 0,
         0, $height,
-        darken(theme(page), 3.5%),
-        darken(theme(page), 7%)
+        lighten(theme(navigation link), 3%),
+        darken(theme(navigation link), 7%)
       )
       fill
     );
@@ -175,11 +180,10 @@ h2 {
   &:hover {
     @include background-image(
       linear-gradient(
-        darken(theme(page), 1.5%),
-        darken(theme(page), 5%)
+        lighten(theme(navigation link), 8%),
+        darken(theme(navigation link), 2%)
       )
     );
-    color: theme(text main);
 
     .no-cssgradients & {
 
@@ -191,8 +195,8 @@ h2 {
         brush(
           0, 0,
           0, $height,
-          darken(theme(page), 1.5%),
-          darken(theme(page), 5%)
+          lighten(theme(navigation link), 8%),
+          darken(theme(navigation link), 2%)
         )
         fill
       );
@@ -201,10 +205,11 @@ h2 {
     }
   }
 
-  &:active,
   &.active {
+    @include text-shadow(theme(page) 0 1px 0);
     @include box-shadow(theme(page) 0 1px 0 0 inset);
-    border-bottom-color: darken(theme(page), 7.5%);
+    border-color: darken(theme(page), 15%);
+    border-bottom-color: theme(page);
     background: rgba(theme(page), .7);
     color: theme(text main);
 
@@ -224,10 +229,6 @@ h2 {
 
       @include safe-background-image($background-commands, transparent, repeat);
     }
-  }
-
-  &:active {
-    border-bottom-color: darken(theme(page), 15%);
   }
 }
 

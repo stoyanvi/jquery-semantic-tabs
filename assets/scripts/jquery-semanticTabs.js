@@ -29,7 +29,6 @@
             $activeTab,
             $activeContent,
             prefixID,
-            tabAnchor,
             heightRatio;
 
         base.init = function() {
@@ -121,11 +120,8 @@
             if (!$(this).hasClass('active')) {
 
                 $activeTab.removeClass('active');
-
                 $activeTab = $(this);
-                $activeTab.addClass('active');
-
-                tabAnchor = $(this).attr('href');
+                var tabAnchor = $(this).attr('href');
 
                 if ($.browser.msie && $.browser.version.substr(0,1) <= 7) {
 
@@ -143,8 +139,11 @@
                         height: elHeight
 
                     }, base.settings.easeDuration * 1.5, function() {
+
                         $(tabAnchor).parent().css('overflow', 'visible');
                         $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
+
+                        $activeTab.addClass('active');
                     });
                 });
             }

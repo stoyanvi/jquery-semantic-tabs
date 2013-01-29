@@ -127,12 +127,16 @@
   @include trailer($font-size: $font-size);
 }
 
-@mixin safe-background-image($image, $color: transparent, $repeat: no-repeat, $posx: 0, $posy: 0) {
+/* @mixin safe-background-image($image, $color: transparent, $repeat: no-repeat, $posx: 0, $posy: 0) {
   background: $color inline-image($image) $repeat $posx $posy;
 
   .ie7 &, .ie8 & {
     background: $color image-url($image) $repeat $posx $posy;
   }
+} */
+
+@mixin safe-background-image($image, $color: transparent, $repeat: no-repeat, $posx: 0, $posy: 0) {
+  background: $color image-url($image) $repeat $posx $posy;
 }
 
 @function item-width($i) {
