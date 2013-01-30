@@ -10,7 +10,6 @@
             easeDuration: 200, // Animation duration
             firstChildClass: 'first-child', // Tabs li:first-child class to support old browsers
             lastChildClass: 'last-child', // Tabs li:last-child class to support old browsers
-            tabContentMarginBottom: 24 // Base line height in px
         }
 
         var base = this;
@@ -28,8 +27,7 @@
             $tabsContent,
             $activeTab,
             $activeContent,
-            prefixID,
-            heightRatio;
+            prefixID;
 
         base.init = function() {
 
@@ -101,13 +99,11 @@
 
                 $tabsContent.find(base.settings.headingTag).remove();
 
-                $activeContent.parent().height($activeContent.outerHeight(true) + heightRatio);
-
-                heightRatio = base.settings.tabContentMarginBottom;
+                $activeContent.parent().height($activeContent.outerHeight(true));
             });
 
             $(window).bind('resize', function() {
-                $activeContent.parent().height($activeContent.outerHeight(true) + heightRatio);
+                $activeContent.parent().height($activeContent.outerHeight(true));
             });
 
             $tabsNav.find('.' + base.settings.prefixClass + 'anchor').bind('click', openTab);
@@ -123,16 +119,11 @@
 
                 $activeTab.removeClass('active');
                 $activeTab = $(this);
-                var tabAnchor = $(this).attr('href');
+                
+                var tabAnchor = $(this).attr('href'),
+                    elHeight = $(tabAnchor).show().outerHeight(true);
 
-                if ($.browser.msie && $.browser.version.substr(0,1) <= 7) {
-
-                    var elHeight = $(tabAnchor).outerHeight(true);
-
-                } else {
-
-                    var elHeight = $(tabAnchor).outerHeight(true) + heightRatio - 3;
-                }
+                $(tabAnchor).hide();
 
                 $activeContent.fadeOut(base.settings.easeDuration, function() {
 
@@ -142,7 +133,6 @@
 
                     }, base.settings.easeDuration * 1.5, function() {
 
-                        $(tabAnchor).parent().css('overflow', 'visible');
                         $activeContent = $(tabAnchor).fadeIn(base.settings.easeDuration);
 
                         $activeTab.addClass('active');

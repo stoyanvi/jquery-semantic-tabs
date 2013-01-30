@@ -238,7 +238,7 @@ h2 {
 
 .tabs-content-wrapper {
   @include border-radius(0 0 $base-radius $base-radius);
-  padding: rhythm(.85) rhythm(.75) 0;
+  overflow: hidden;
   border: 1px solid darken(theme(page), 15%);
   border-top: 0 none;
   background: rgba(theme(page), .7);
@@ -247,6 +247,10 @@ h2 {
 
     @include safe-background-image('background-tabs_anchor_current.png', transparent, repeat);
   }
+}
+
+.tabs-content {
+  margin: rhythm(.85) rhythm(.75) rhythm();
 }
 
 /*** / Tabs ***/

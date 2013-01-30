@@ -47,5 +47,4 @@ You can change the following plugin options:
         easeDuration:           200,            // Animation duration
         firstChildClass:        'first-child',  // Tabs li:first-child class to support old browsers
         lastChildClass:         'last-child',   // Tabs li:last-child class to support old browsers
-        tabContentMarginBottom: 24              // Base line height in px
     }
