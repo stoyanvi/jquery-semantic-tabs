@@ -9,7 +9,7 @@
             startTab: 1, // Number of tab to be opened on initial page load
             easeDuration: 200, // Animation duration
             firstChildClass: 'first-child', // Tabs li:first-child class to support old browsers
-            lastChildClass: 'last-child', // Tabs li:last-child class to support old browsers
+            lastChildClass: 'last-child' // Tabs li:last-child class to support old browsers
         }
 
         var base = this;
@@ -119,7 +119,7 @@
 
                 $activeTab.removeClass('active');
                 $activeTab = $(this);
-                
+
                 var tabAnchor = $(this).attr('href'),
                     elHeight = $(tabAnchor).show().outerHeight(true);
 
