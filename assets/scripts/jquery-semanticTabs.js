@@ -1,3 +1,16 @@
+/*
+ * jQuery semanticTabs
+ * Version 1.0
+ * http://srobbin.com/jquery-pageslide/
+ *
+ * jQuery Javascript plugin which convert any html list into a tabbed content.
+ *
+ * Copyright (c) 2013 Stoyan Ivanov
+ * 
+ * Licensed under the MIT license:
+ *   http://opensource.org/licenses/MIT
+*/
+
 (function($) {
 
     $.semanticTabs = function(element, options) {

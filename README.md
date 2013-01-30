@@ -4,7 +4,7 @@ jquery-semantic-tabs
 Description
 -----------
 
-jquery-semantic-tabs is a jQuery plugin that convert any html list into a tabbed content.
+SemanticTabs is a jQuery plugin which which convert any html list into a tabbed content.
 
 Example usage
 -------------
