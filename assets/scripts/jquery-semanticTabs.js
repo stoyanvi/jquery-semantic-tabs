@@ -2,7 +2,7 @@
  * jQuery semanticTabs
  * Version 1.0
  *
- * jQuery Javascript plugin which convert any html list into a tabbed content.
+ * jQuery plugin which convert any html list into a tabbed content.
  *
  * Copyright (c) 2013 Stoyan Ivanov
  *
@@ -10,23 +10,23 @@
  *   http://opensource.org/licenses/MIT
 */
 
-(function($) {
+;(function($, window, document, undefined) {
 
     $.semanticTabs = function(element, options) {
 
         var defaults = {
 
-            prefixClass: 'tabs-', // Default Tabs classes and id prefix
-            headingTag: 'h3', // Each content block heading tag, id or class
-            startTab: 1, // Number of tab to be opened on initial page load
-            easeDuration: 200, // Animation duration
+            prefixClass: 'tabs-',           // Default Tabs classes and id prefix
+            headingTag: 'h3',               // Each content block heading tag, id or class
+            startTab: 1,                    // Number of tab to be opened on initial page load
+            easeDuration: 150,              // Animation duration
             firstChildClass: 'first-child', // Tabs li:first-child class to support old browsers
-            lastChildClass: 'last-child' // Tabs li:last-child class to support old browsers
+            lastChildClass: 'last-child'    // Tabs li:last-child class to support old browsers
         }
 
         var base = this;
 
-        base.settings = {}
+        base.settings = {};
 
         var $element = $(element),
              element = element,
@@ -53,39 +53,54 @@
 
             if ($('#' + base.settings.prefixClass + prefixID).length > 0) {
 
-                console.log('Error: #' + base.settings.prefixClass + prefixID + ' already exist');
-                return false;
+                throw new Error('#' + base.settings.prefixClass + prefixID + ' already exist!');
+
+                return;
 
             } else {
 
                 addTabs();
             }
-        }
+        };
 
         var addEl = function(tag, className, css) {
 
             var el = document.createElement(tag);
 
-            if(className) el.className = className;
-            if(css) el.style.cssText = css;
+            if (className) {
+
+                el.className = className;
+            }
+
+            if (css) {
+
+                el.style.cssText = css;
+            }
 
             return $(el);
-        }
+        };
 
         var addTabs = function() {
 
-            $tabsContainer = addEl('div').attr('id', base.settings.prefixClass + prefixID).insertBefore($element);
-            $tabsNav = addEl('ul', base.settings.prefixClass + 'links ' + base.settings.prefixClass + 'links-' + $tabs.length).appendTo($tabsContainer);
-            $tabsWrapper = addEl('div', base.settings.prefixClass + 'content-wrapper').appendTo($tabsContainer);
+            $tabsContainer = addEl('div')
+                                .attr('id', base.settings.prefixClass + prefixID)
+                                .insertBefore($element);
+
+            $tabsNav = addEl('ul', base.settings.prefixClass + 'links ' + base.settings.prefixClass + 'links-' + $tabs.length)
+                                .appendTo($tabsContainer);
+
+            $tabsWrapper = addEl('div', base.settings.prefixClass + 'content-wrapper')
+                                .appendTo($tabsContainer);
 
             $tabs.find(base.settings.headingTag).each(function(index) {
 
-                $tabsItems = addEl('li').appendTo($tabsNav);
+                $tabsItems = addEl('li')
+                                .appendTo($tabsNav);
 
                 $tabAnchor = addEl('a', base.settings.prefixClass + 'anchor ' + base.settings.prefixClass + 'anchor-0' + (index + 1))
-                            .attr('href', '#' + prefixID + '-item-0' + (index + 1))
-                            .appendTo($tabsItems)
-                            .text($(this).text());
+                                .attr('href', '#' + prefixID + '-item-0' + (index + 1))
+                                .appendTo($tabsItems)
+                                .text($(this).text());
 
                 if (index == 0) {
 
@@ -97,12 +112,12 @@
                 }
 
                 $tabsContent = addEl('div', base.settings.prefixClass + 'content')
-                              .attr('id', prefixID + '-item-0' + (index + 1))
-                              .appendTo($tabsWrapper)
-                              .hide();
+                                  .attr('id', prefixID + '-item-0' + (index + 1))
+                                  .appendTo($tabsWrapper)
+                                  .hide();
 
                 $activeTab = $tabsNav.find('.' + base.settings.prefixClass + 'anchor-0' + base.settings.startTab)
-                                           .addClass('active');
+                                .addClass('active');
 
                 $activeContent = $('#' + prefixID + '-item-0' + base.settings.startTab).show();
 
@@ -119,12 +134,13 @@
                 $activeContent.parent().height($activeContent.outerHeight(true));
             });
 
-            $(window).bind('resize', function() {
+            $(window).on('resize', function() {
+
                 $activeContent.parent().height($activeContent.outerHeight(true));
             });
 
-            $tabsNav.find('.' + base.settings.prefixClass + 'anchor').bind('click', openTab);
-        }
+            $tabsNav.find('.' + base.settings.prefixClass + 'anchor').on('click', openTab);
+        };
 
         var openTab = function(e) {
 
@@ -132,7 +148,7 @@
 
             if (!$(this).hasClass('active')) {
 
-                $tabsNav.find('.' + base.settings.prefixClass + 'anchor').unbind().bind('click', function(e) { e.preventDefault(); });
+                $tabsNav.find('.' + base.settings.prefixClass + 'anchor').off().on('click', function(e) { e.preventDefault(); });
 
                 $activeTab.addClass('prev-active');
                 $activeTab = $(this);
@@ -154,17 +170,17 @@
 
                         $tabsNav.find('.prev-active').removeClass('active prev-active');
                         $activeTab.addClass('active');
-                        $tabsNav.find('.' + base.settings.prefixClass + 'anchor').unbind().bind('click', openTab);
+                        $tabsNav.find('.' + base.settings.prefixClass + 'anchor').off().on('click', openTab);
                     });
                 });
             }
-        }
+        };
 
         base.destroy = function() {
 
             $('#' + base.settings.prefixClass + prefixID).remove();
             $element.show();
-        }
+        };
 
         base.init();
     }
@@ -175,10 +191,10 @@
 
             if (undefined == $(this).data('semanticTabs')) {
 
-                var semanticTabs = new $.semanticTabs(this, options);
-                $(this).data('semanticTabs', semanticTabs);
+                var tabs = new $.semanticTabs(this, options);
+                $(this).data('semanticTabs', tabs);
             }
         });
-    }
+    };
 
-})(jQuery);
+})(jQuery, window, document);
