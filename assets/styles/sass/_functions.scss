@@ -1,0 +1,147 @@
+// Get a single value from a list of `(key value)` pairs.
+
+@function value-from-list($key, $list) {
+
+  $lookup: $key;
+  $target: $list;
+
+  @if (type-of($lookup) == 'string') {
+    $lookup: -compass-list($lookup);
+  }
+
+  @for $i from 1 through length($lookup) {
+
+    $found: '__false';
+
+    @for $j from 1 through length($target) / 2 {
+
+      @if (nth($target, ($j * 2) - 1) == nth($lookup, $i)) {
+
+        $found: nth($target, ($j * 2));
+      }
+    }
+
+    @if ($found == '__false') {
+
+      @warn "The list (#{$list}) does not contain a value for key '#{$key}'.";
+      @return false;
+    }
+    $target: $found;
+  }
+  @return $target;
+}
+
+// Get the colour for a given theme component, e.g., 'page'.
+
+@function theme($component, $level: original) {
+
+  $color:      value-from-list($component, $theme);
+  $brightness: value-from-list($level,     $levels);
+
+  @if ($brightness < 0%) {
+
+    @return darken($color, abs($brightness));
+  }
+
+  @if ($brightness > 0%) {
+
+    @return lighten($color, $brightness);
+  }
+
+  @return $color;
+}
+
+// Clear Fix.
+
+@mixin clearfix() {
+
+  &:before, &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+  zoom: 1;
+}
+
+%page {
+  position: relative;
+  display: block;
+  min-width: $min-page-width;
+  max-width: $page-width;
+  margin: 0 auto;
+  @include clearfix;
+}
+
+// Hides text in an element so you can see the background.
+
+@mixin hide-text {
+  font: 0/0 serif;
+  text-shadow: none;
+  color: transparent;
+  overflow: hidden;
+  border: none;
+}
+
+@mixin show-text {
+  font-size: $base-font-size;
+  font-family: $base-font-family;
+  line-height: $base-line-height;
+  color: theme(text main);
+  overflow: visible;
+}
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+%base-font-size {
+  @include adjust-font-size-to($base-font-size);
+}
+
+%headings {
+  @include text-shadow(theme(page) 0 1px 0);
+  margin-top: 0;
+  color: lighten(theme(text main, light), 8.5%);
+  font-family: $heading-font-family;
+  text-align: left;
+  font-weight: normal;
+  cursor: default;
+}
+
+@mixin headings($level) {
+
+  @extend %headings;
+  $font-size: $base-font-size * (2 - (.25 * ($level - 1)));
+  @include adjust-font-size-to($font-size);
+  @include trailer($font-size: $font-size);
+}
+
+/* @mixin safe-background-image($image, $color: transparent, $repeat: no-repeat, $posx: 0, $posy: 0) {
+  background: $color inline-image($image) $repeat $posx $posy;
+
+  .ie7 &, .ie8 & {
+    background: $color image-url($image) $repeat $posx $posy;
+  }
+} */
+
+@mixin safe-background-image($image, $color: transparent, $repeat: no-repeat, $posx: 0, $posy: 0) {
+  background: $color image-url($image) $repeat $posx $posy;
+}
+
+@function item-width($i) {
+
+  $width: 100% / $i;
+  @return $width;
+}
+

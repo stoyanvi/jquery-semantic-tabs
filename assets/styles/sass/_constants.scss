@@ -1,0 +1,66 @@
+$legacy-support-for-ie6: false;
+$legacy-support-for-ie7: true;
+$legacy-support-for-ie8: true;
+$legacy-support-for-mozilla: true;
+
+@import 'normalize';
+@import 'compass';
+@import 'canvas';
+
+@import 'compass/layout/grid-background';
+
+/* =============================================================================
+  SETUP
+============================================================================= */
+
+$theme:
+  page            #fff
+
+  text (
+    main          #555
+    footer        #6e6e6e
+  )
+
+  navigation (
+    link          #2d87c8
+  )
+;
+
+$levels:
+  absdark        -100%
+  darkest        -75%
+  darker         -50%
+  dark           -25%
+  darkish        -10%
+  original         0%
+  lightish        10%
+  light           25%
+  lighter         50%
+  lightest        75%
+  absligh        100%
+;
+
+$base-font-size:                  16px;
+$base-line-height:                $base-font-size * 1.5;
+$base-font-family:                Arial, 'Helvetica Neue', Helvetica, sans-serif;
+$heading-font-family:             'Lucida Sans Unicode', 'Lucida Grande', Garuda, sans-serif;
+$input-font-family:               $base-font-family;
+
+$blueprint-font-family:           $base-font-family;
+$blueprint-font-size:             $base-font-size;
+
+$show-grid-backgrounds:           false;
+
+@include establish-baseline;
+
+$page-width:                      960px;
+$min-page-width:                  300px;
+$page-height:                     2000px;
+$base-radius:                     6px;
+
+$background-main:                 'background-main.png';
+
+.content {
+  @include baseline-grid-background($base-line-height, rgba(red, .15));
+}
+

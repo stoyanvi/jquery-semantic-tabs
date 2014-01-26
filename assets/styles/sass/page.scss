@@ -1,0 +1,268 @@
+@import 'constants';
+@import 'functions';
+
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+}
+
+/* =============================================================================
+  GENERAL
+============================================================================= */
+
+* { @include box-sizing(border-box); }
+
+html {
+  background: theme(text main, darkish);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $base-font-family;
+  color: theme(text main);
+}
+
+p {
+  @include trailer;
+  margin-top: 0;
+}
+
+a {
+  color: theme(navigation link);
+  text-decoration: none;
+  border-bottom: 1px dotted theme(navigation link);
+  outline: 0 !important;
+
+  &:hover,
+  &:active {
+    border-bottom-style: solid;
+  }
+
+  &:visited {
+    color: theme(navigation link);
+  }
+
+  &:focus {
+    -moz-outline-style: none;
+    outline: none;
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+@for $i from 1 through 4 {
+
+  h#{$i} { @include headings($i); }
+}
+
+#main {
+  @include safe-background-image($background-main, transparent, repeat);
+  padding: rhythm(2) 0;
+}
+
+.content {
+  @extend %page;
+  @include clearfix;
+  min-height: rhythm(20);
+  padding: 0 rhythm();
+}
+
+p { text-align: left; }
+
+.float-left {
+  @include float(left);
+  margin: 0 rhythm() rhythm() 0;
+}
+
+.float-right {
+  @include float(right);
+  margin: 0 0 rhythm() rhythm();
+}
+
+#solutions {
+  @include no-bullets;
+  margin: 0 0 rhythm();
+  padding: 0;
+}
+
+h2 {
+  //background: rgba(red, .15);
+}
+
+.toggle-tabs {
+  position: absolute;
+  top: rhythm(.5);
+  right: rhythm();
+  border-bottom: 1px dotted theme(navigation link);
+  color: theme(navigation link);
+  cursor: pointer;
+
+  &:hover {
+    border-bottom-style: solid;
+  }
+}
+
+/*** Tabs ***/
+
+.tabs-links {
+  @include no-bullets;
+  @include horizontal-list-container;
+
+  li {
+    @include horizontal-list-item(0);
+    width: item-width(3);
+
+    &.first-child {
+
+      a {
+        @include border-radius($base-radius 0 0 0);
+      }
+    }
+
+    &.last-child {
+
+      a {
+        @include border-radius(0 $base-radius 0 0);
+        border-right: 1px solid darken(theme(navigation link), 7%);
+
+        &.active {
+          border-right-color: darken(theme(page), 15%);
+        }
+      }
+    }
+  }
+}
+
+.tabs-anchor {
+  @include background-image(
+    linear-gradient(
+      lighten(theme(navigation link), 3%),
+      darken(theme(navigation link), 7%)
+    )
+  );
+  @include box-shadow(
+    rgba(theme(page), .35) 0 1px 0 0 inset,
+    rgba(theme(page, absdark), .15) 0 -10px 10px -10px inset
+  );
+  @include text-shadow(darken(theme(navigation link), 10%) 0 1px 0);
+  display: block;
+  padding: rhythm(.5) rhythm(.35);
+  border: 1px solid darken(theme(navigation link), 7%);
+  border-right: 0 none;
+  text-align: center;
+  color: theme(page);
+  overflow: hidden;
+	text-overflow: ellipsis;
+
+  .no-cssgradients & {
+
+    $width: 1px;
+    $height: $base-line-height * 2;
+
+    $background-commands: canvas('background-tabs_anchor.png', $width, $height,
+      rectangle(0, 0, $width, $height)
+      brush(
+        0, 0,
+        0, $height,
+        lighten(theme(navigation link), 3%),
+        darken(theme(navigation link), 7%)
+      )
+      fill
+    );
+
+    @include safe-background-image($background-commands, transparent, repeat-x);
+  }
+
+  &:visited {
+    color: theme(page);
+  }
+
+  &:hover {
+    @include background-image(
+      linear-gradient(
+        lighten(theme(navigation link), 8%),
+        darken(theme(navigation link), 2%)
+      )
+    );
+
+    .no-cssgradients & {
+
+      $width: 1px;
+      $height: $base-line-height * 2;
+
+      $background-commands: canvas('background-tabs_anchor_hover.png', $width, $height,
+        rectangle(0, 0, $width, $height)
+        brush(
+          0, 0,
+          0, $height,
+          lighten(theme(navigation link), 8%),
+          darken(theme(navigation link), 2%)
+        )
+        fill
+      );
+
+      @include safe-background-image($background-commands, transparent, repeat-x);
+    }
+  }
+
+  &.active {
+    @include text-shadow(theme(page) 0 1px 0);
+    @include box-shadow(theme(page) 0 1px 0 0 inset);
+    border-color: darken(theme(page), 15%);
+    border-bottom-color: theme(page);
+    background: rgba(theme(page), .7);
+    color: theme(text main);
+
+    .no-cssgradients & {
+      background: rgba(theme(page), .7);
+    }
+
+    .no-rgba & {
+
+      $size: 10px;
+
+      $background-commands: canvas('background-tabs_anchor_current.png', $size, $size,
+        rectangle(0, 0, $size, $size)
+        brush(rgba(theme(page), .7))
+        fill
+      );
+
+      @include safe-background-image($background-commands, transparent, repeat);
+    }
+  }
+}
+
+.tabs-content-wrapper {
+  @include border-radius(0 0 $base-radius $base-radius);
+  overflow: hidden;
+  border: 1px solid darken(theme(page), 15%);
+  border-top: 0 none;
+  background: rgba(theme(page), .7);
+
+  .no-rgba & {
+
+    @include safe-background-image('background-tabs_anchor_current.png', transparent, repeat);
+  }
+}
+
+.tabs-content {
+  margin: rhythm(.85) rhythm(.75) rhythm();
+}
+
+/*** / Tabs ***/
+
+#footer {
+  margin-bottom: rhythm();
+  color: theme(text footer);
+}
+
+.copyright {
+  display: block;
+  margin: rhythm() auto;
+  text-align: center;
+}
+
